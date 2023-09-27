@@ -1,21 +1,16 @@
 [book]
-title = "Ordinal Theory Handbook"
+title = "Ordinal 序数理论"
 language = "zh-cn"
-src = "./zh"
+src = "zh"
 
-[build]
-build-dir = "build"
-create-missing = false
-extra-watch-dirs = ["po"]
 
 [output.html]
-cname = "docs.ordinals.com"
-default-theme = "coal"
-git-repository-url = "https://github.com/ordinals/ord"
-preferred-dark-theme = "coal"
-additional-css = ["language-picker.css"]
+curly-quotes = true
+git-repository-url = "https://github.com/decert-me/ordinals"
 
-[output.linkcheck]
+[output.html.print]
+page-break = false
 
-[preprocessor.gettext]
+[preprocessor.katex]
 after = ["links"]
+

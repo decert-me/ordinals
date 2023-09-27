@@ -5,13 +5,10 @@ _本指南已过时。自编写以来，“ord”安装文件已更改仅当提�
 
 
 
-Ordinal hunting is difficult but rewarding. The feeling of owning a wallet 
-full of UTXOs, redolent with the scent of rare and exotic sats, is beyond 
-compare.
+Ordinal hunting is difficult but rewarding. The feeling of owning a wallet full of UTXOs, redolent with the scent of rare and exotic sats, is beyond compare.
 
 
-Ordinals are numbers for satoshis. Every satoshi has an ordinal number and 
-every ordinal number has a satoshi.
+Ordinals are numbers for satoshis. Every satoshi has an ordinal number and every ordinal number has a satoshi.
 
 
 Preparation
@@ -133,10 +130,7 @@ bitcoin-cli importdescriptors
 
 
 
-
-If you know the Unix timestamp when your wallet first started receive 
-transactions, you may use it for the value of `"timestamp"` instead of 
-`0`. This will reduce the time it takes for Bitcoin Core to search for your 
+If you know the Unix timestamp when your wallet first started receive transactions, you may use it for the value of `"timestamp"` instead of `0`. This will reduce the time it takes for Bitcoin Core to search for your 
 wallet's UTXOs.
 
 
@@ -292,8 +286,7 @@ ord wallet sats
 
 #### 麻雀钱包
 
-Navigate to the `Settings` tab, then to `Script Policy`, and press the edit 
-button to display the descriptor.
+Navigate to the `Settings` tab, then to `Script Policy`, and press the edit button to display the descriptor.
 
 ### Transferring Ordinals
 
