@@ -1,19 +1,9 @@
----
-title: "DeCert.Me | undefined"
-description: "undefined"
-image: "https://ipfs.decert.me/undefined"
-sidebar_label: "调试"
----
 调试
 =======
 
-使用以下标志来指定测试网络，可以测试 Ord。有关运行比特币核心进行测试的更多信
-息，请参见[比特币的开发者文档](https://developer.bitcoin.org/examples/
-testing。
+使用以下标志来指定测试网络，可以测试 Ord。有关运行比特币核心进行测试的更多信息，请参见[比特币的开发者文档](https://developer.bitcoin.org/examples/testing)。
 
-
-大多数在[铭文](inscriptions.md) 和 [浏览器](explorer.md) 中的 `ord`命令可以使
-用以下网络标志运行：
+大多数在[铭文](inscriptions.md) 和 [浏览器](explorer.md) 中的 `ord`命令可以使用以下网络标志运行：
 
 
 | Network | Flag |
@@ -73,8 +63,7 @@ ord -r server
 测试递归
 -----------------
 
-测试 [recursion](../inscriptions/recursion.md) 时，首先记下依赖项（以 [p5.js]
-(https://p5js.org) 为例：
+测试 [recursion](../inscriptions/recursion.md) 时，首先记下依赖项（以 [p5.js](https://p5js.org) 为例：
 
 ```
 ord -r wallet inscribe --fee-rate 1 p5.js
@@ -84,10 +73,7 @@ ord -r wallet inscribe --fee-rate 1 p5.js
 这应该返回一个`inscription_id`，然后您可以在递归铭文中引用它。
 
 
-请注意，在主网和signet上铭刻的时候这些id有所不同，因此请务必更改每个链的递归
-铭文中的内容。
-
-
+请注意，在主网和signet上铭刻的时候这些id有所不同，因此请务必更改每个链的递归铭文中的内容。
 
 现在你可以使用以下命令来铭刻你的递归铭文：
 ```
