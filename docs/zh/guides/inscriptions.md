@@ -1,9 +1,3 @@
----
-title: "DeCert.Me | undefined"
-description: "undefined"
-image: "https://ipfs.decert.me/undefined"
-sidebar_label: "铭文"
----
 铭文指引
 =========================
 
@@ -49,23 +43,19 @@ Bitcoin Core 提供比特币全节点和钱包。 但是，Bitcoin Core 钱包�
 安装 Bitcoin Core
 -----------------------
 
-Bitcoin Core 可以在 [bitcoincore.org](https://bitcoincore.org/) 上的[下载页
-面](https://bitcoincore.org/en/download/).
+Bitcoin Core 可以在 [bitcoincore.org](https://bitcoincore.org/) 上的[下载页面](https://bitcoincore.org/en/download/).
 
 
 制作铭文需要Bitcoin Core 24 或者更新版本。
 
-本指南不包括如何详细安装 Bitcoin Core；当你成功安装Bitcoin Core以后，你应该可
-以在命令行使用 `bitcoind -version`命令。
+本指南不包括如何详细安装 Bitcoin Core；当你成功安装Bitcoin Core以后，你应该可以在命令行使用 `bitcoind -version`命令。
 
 
 
 配置 Bitcoin Core
 ------------------------
 
-`ord` 需要Bitcoin Core 的交易索引
-
-配置你的Bitcoin Core阶段去维护一个交易索引，需要在`bitcoin.conf`里面添加:
+`ord` 需要Bitcoin Core 的交易索引配置你的Bitcoin Core阶段去维护一个交易索引，需要在`bitcoin.conf`里面添加:
 
 
 ```
@@ -101,18 +91,14 @@ bitcoin-cli getblockcount
 
 
 
-像区块链浏览器[the mempool.space block explorer](https://mempool.space/)一样
-对区块进行记述. `ord`同`bitcoind`进行交互, 所以你在使用`ord`时候需要让
-`bitcoind` 在后台运行。
+像区块链浏览器[the mempool.space block explorer](https://mempool.space/)一样对区块进行记述. `ord`同`bitcoind`进行交互, 所以你在使用`ord`时候需要让`bitcoind` 在后台运行。
 
 
 
 安装 `ord`
 ----------------
 
-`ord` 程序使用Rust语言写成，可以从[源码](https://github.com/ordinals/ord)安
-装. 预制文件可以从[版本发布页](https://github.com/ordinals/ord/releases)下
-载。
+`ord` 程序使用Rust语言写成，可以从[源码](https://github.com/ordinals/ord)安装. 预制文件可以从[版本发布页](https://github.com/ordinals/ord/releases)下载。
 
 
 
@@ -152,8 +138,7 @@ ord wallet create
 接收聪
 --------------
 
-铭文是在单个聪上制作的，使用聪来支付费用的普通比特币交易，因此你的钱包将需要
-一些 聪（比特币）。
+铭文是在单个聪上制作的，使用聪来支付费用的普通比特币交易，因此你的钱包将需要一些 聪（比特币）。
 
 
 为你的 `ord` 钱包创建一个新地址，运行:
@@ -180,21 +165,17 @@ ord wallet transactions
 创建铭文内容
 ----------------------------
 
-聪上可以刻录任何类型的内容，但`ord`钱包只支持`ord`区块浏览器可以显示的内容类
-型。
+聪上可以刻录任何类型的内容，但`ord`钱包只支持`ord`区块浏览器可以显示的内容类型。
 
 
 另外，铭文是包含在交易中的，所以内容越大，铭文交易需要支付的费用就越高。
 
 
-铭文内容包含在交易见证中，获得见证折扣。要计算写入交易将支付的大概费用，请将
-内容大小除以四，然后乘以费率。
+铭文内容包含在交易见证中，获得见证折扣。要计算写入交易将支付的大概费用，请将内容大小除以四，然后乘以费率
 
 
 
-铭文交易必须少于 400,000 个权重计量单位，否则不会被 Bitcoin Core 中继。一个字
-节的铭文内容需要一个权重计量单位。 由于铭文交易不只是铭文内容，铭文内容限制在
-400,000权重计量单位以内。390,000 个权重计量单位应该是安全的。
+铭文交易必须少于 400,000 个权重计量单位，否则不会被 Bitcoin Core 中继。一个字节的铭文内容需要一个权重计量单位。 由于铭文交易不只是铭文内容，铭文内容限制在400,000权重计量单位以内。390,000 个权重计量单位应该是安全的。
 
 
 
@@ -211,21 +192,17 @@ ord wallet inscribe --fee-rate FEE_RATE FILE
 
 
 
-Ord会输出两个交易ID，一个是commit交易，一个是reveal交易，还有铭文ID。铭文 ID 
-的格式为`TXIDiN`，其中`TXID` 是揭示交易的交易 ID，`N` 是揭示交易中铭文的索
-引。
+Ord会输出两个交易ID，一个是commit交易，一个是reveal交易，还有铭文ID。铭文 ID 的格式为`TXIDiN`，其中`TXID` 是揭示交易的交易 ID，`N` 是揭示交易中铭文的索引。
 
 
 
 
-Commit交易提交到包含铭文内容的 tapscript，reveal交易则从该 tapscript 中花费，
-显示链上的内容并将它们铭刻在reveal交易的第一个输出的第一个 sat 上。
+Commit交易提交到包含铭文内容的 tapscript，reveal交易则从该 tapscript 中花费，显示链上的内容并将它们铭刻在reveal交易的第一个输出的第一个 sat 上。
 
 
 
 
-在等待reveal交易被记录的同时，你可以使用[the mempool.space block explorer]
-(https://mempool.space/)来检查交易的状态。
+在等待reveal交易被记录的同时，你可以使用[the mempool.space block explorer](https://mempool.space/)来检查交易的状态。
 
 
 
@@ -238,24 +215,32 @@ ord wallet inscriptions
 
 
 
-你可以在 [the ordinals explorer](https://ordinals.com/) 上用一下格式访问铭文
-`ordinals.com/inscription/INSCRIPTION_ID`.
+## Parent Child Inscriptions
 
-
-发送铭文
+A child inscription is an inscription that is a child of another inscription. See [provenance](https://docs.ordinals.com/zh/inscriptions/provenance.html) for more information.
 
 get the parent inscription id `<PARENT_INSCRIPTION_ID>` from the output of `ord wallet inscriptions`
-铭文接收方使用一下命令生成地址
+
 ```
-```\n
-ord wallet receive\n
+ord wallet inscribe --fee-rate FEE_RATE --parent <PARENT_INSCRIPTION_ID> CHILD_FILE"
+```
+
+你可以在 [the ordinals explorer](https://ordinals.com/) 上用一下格式访问铭文`ordinals.com/inscription/INSCRIPTION_ID`.
+
+### 发送铭文
+
+
+铭文接收方使用一下命令生成地址
+
+```
+ord wallet receive
 ```
 
 
 
 使用命令格式发送铭文：
 
-```\n
+```
 ord wallet send --fee-rate <FEE_RATE> <ADDRESS> <INSCRIPTION_ID>\n
 ```
 
@@ -263,62 +248,43 @@ ord wallet send --fee-rate <FEE_RATE> <ADDRESS> <INSCRIPTION_ID>\n
 
 检查未完成交易情况：
 ```
-```
 ord wallet transactions
 ```
-
-
-
 一旦交易确认，接收方可以使用一下命令查看接收到的铭文
-
-
 ```
 ord wallet inscriptions
 ```
+### 接收铭文
 
-
-
-接收铭文
-ord wallet transactions
-```
 使用以下命令生成一个新的接收地址
-Once the send transaction confirms, the recipient can confirm receipt by
-```\n
-ord wallet receive\n
-```
 
+```
+ord wallet receive
+```
 
 
 发送方使用命令发送铭文到你的地址
 
-```\n
-ord wallet send ADDRESS INSCRIPTION_ID\n
+```
+ord wallet send ADDRESS INSCRIPTION_ID
 ```
 
 
 
 检查未完成交易情况：
-```\n
-ord wallet transactions\n
+```
+ord wallet transactions
 ```
 
 
 
 一旦交易确认，你可以使用以下命令确认收到
 
-```\n
-ord wallet inscriptions\n
-```
-
-
-
-See the pending transaction with:
-```
-ord wallet transactions
-```
-
-Once the send transaction confirms, you can can confirm receipt by running:
-
 ```
 ord wallet inscriptions
 ```
+
+
+
+
+

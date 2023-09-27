@@ -1,9 +1,3 @@
----
-title: "DeCert.Me | undefined"
-description: "undefined"
-image: "https://ipfs.decert.me/undefined"
-sidebar_label: "赏金"
----
 Ordinals赏金计划提示
 ============================
 
@@ -14,8 +8,6 @@ Ordinals赏金计划提示
 
 - 关于序数理论的更多信息，请查阅[FAQ](./faq.md) 来获取概述；查阅[BIP](https://github.com/ordinals/ord/blob/master/bip.mediawiki) 来获取技术细节查阅[ord 
 repo](https://github.com/ordinals/ord)来获取`ord`钱包和浏览器的信息.
-
-
 
 
 

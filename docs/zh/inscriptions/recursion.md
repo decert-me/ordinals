@@ -1,15 +1,7 @@
----
-title: "DeCert.Me | undefined"
-description: "undefined"
-image: "https://ipfs.decert.me/undefined"
-sidebar_label: "递归"
----
 递归
 =========
 
-[沙盒化](../inscriptions.md#sandboxing)的一个重要例外是递归：访问“ord”的“/
-content”允许端点，允许铭文访问其他端点的内容通过请求 `/content/
-<INSCRIPTION_ID>` 来获取铭文。
+[沙盒化](../inscriptions.md#sandboxing)的一个重要例外是递归：访问“ord”的“/content”允许端点，允许铭文访问其他端点的内容通过请求`/content/<INSCRIPTION_ID>` 来获取铭文。
 
 
 

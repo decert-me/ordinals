@@ -1,9 +1,3 @@
----
-title: "DeCert.Me | undefined"
-description: "undefined"
-image: "https://ipfs.decert.me/undefined"
-sidebar_label: "指引"
----
 序数理论指引
 =====================
 
