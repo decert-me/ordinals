@@ -1,7 +1,7 @@
 [book]
 title = "Ordinal Theory Handbook"
-language = "zh-cn"
-src = "./zh"
+language = "en"
+src = "src"
 
 [build]
 build-dir = "build"

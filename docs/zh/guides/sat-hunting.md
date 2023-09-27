@@ -1,7 +1,16 @@
+---
+title: "DeCert.Me | undefined"
+description: "undefined"
+image: "https://ipfs.decert.me/undefined"
+sidebar_label: "猎聪"
+---
 猎聪
 ===========
 
-_本指南已过时。自编写以来，“ord”安装文件已更改仅当提供“--index-sats”标志时才构建完整的聪索引。此外，“ord”现在有一个内置钱包，其中包含比特币核心钱包。请参阅`ord wallet --help`。_
+_本指南已过时。自编写以来，“ord”安装文件已更改仅当提供“--index-sats”标志时才
+构建完整的聪索引。此外，“ord”现在有一个内置钱包，其中包含比特币核心钱包。请参
+阅`ord wallet --help`。_
+
 
 
 
@@ -19,7 +28,8 @@ Preparation
 
 There are a few things you'll need before you start.
 
-1. First, you'll need a synced Bitcoin Core node with a transaction index. To turn on transaction indexing, pass `-txindex` on the command-line:
+1. First, you'll need a synced Bitcoin Core node with a transaction index. To 
+turn on transaction indexing, pass `-txindex` on the command-line:
 
 
 ```sh
@@ -37,7 +47,8 @@ txindex=1
 
 
 
-Launch it and wait for it to catch up to the chain tip, at which point the following command should print out the current block height:
+Launch it and wait for it to catch up to the chain tip, at which point the 
+following command should print out the current block height:
 
 
 ```sh
@@ -47,18 +58,25 @@ bitcoin-cli getblockcount
 
 
 2. Second, you'll need a synced `ord` index.
-   - Get a copy of `ord` from [the repo](https://github.com/ordinals/ord/).
-   - Run `RUST_LOG=info ord index`. It should connect to your bitcoin core node and start indexing.
-   - Wait for it to finish indexing.
+
+Get a copy of `ord` from [the repo](https://github.com/ordinals/ord/).
+
+Run `RUST_LOG=info ord index`. It should connect to your bitcoin core node 
+and start indexing.
+
+
+Wait for it to finish indexing.
 
 3. Third, you'll need a wallet with UTXOs that you want to search.
 
 Searching for Rare Ordinals
 ---------------------------
 
-#### Searching for Rare Ordinals in a Bitcoin Core Wallet
+Searching for Rare Ordinals in a Bitcoin Core Wallet
 
-The `ord wallet` command is just a wrapper around Bitcoin Core's RPC API, so searching for rare ordinals in a Bitcoin Core wallet is Easy. Assuming your wallet is named `foo`:
+The `ord wallet` command is just a wrapper around Bitcoin Core's RPC API, so 
+searching for rare ordinals in a Bitcoin Core wallet is Easy. Assuming your 
+wallet is named `foo`:
 
 
 
@@ -78,25 +96,31 @@ ord wallet sats
 
 
 
-#### Searching for Rare Ordinals in a Non-Bitcoin Core Wallet
+Searching for Rare Ordinals in a Non-Bitcoin Core Wallet
 
- The `ord wallet` command is just a wrapper around Bitcoin Core's RPC API, so to search for rare ordinals in a non-Bitcoin Core wallet, you'll need to import your wallet's descriptors into Bitcoin Core.
+The `ord wallet` command is just a wrapper around Bitcoin Core's RPC API, so 
+to search for rare ordinals in a non-Bitcoin Core wallet, you'll need to 
+import your wallet's descriptors into Bitcoin Core.
 
 
 
 [Descriptors](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) describe the ways that wallets generate private keys and public keys.
 
 
-You should only import descriptors into Bitcoin Core for your wallet's public keys, not its private keys.
+You should only import descriptors into Bitcoin Core for your wallet's 
+public keys, not its private keys.
 
 
-If your wallet's public key descriptor is compromised, an attacker will be able to see your wallet's addresses, but your funds will be safe.
+If your wallet's public key descriptor is compromised, an attacker will be 
+able to see your wallet's addresses, but your funds will be safe.
 
 
-If your wallet's private key descriptor is compromised, an attacker can drain your wallet of funds.
+If your wallet's private key descriptor is compromised, an attacker can 
+drain your wallet of funds.
 
 
-1. Get the wallet descriptor from the wallet whose UTXOs you want to search for rare ordinals. It will look something like this:
+1. Get the wallet descriptor from the wallet whose UTXOs you want to search for 
+rare ordinals. It will look something like this:
 
 
 ```
@@ -158,14 +182,18 @@ ord wallet sats
 
 
 
-#### Searching for Rare Ordinals in a Wallet that Exports Multi-path Descriptors
+Searching for Rare Ordinals in a Wallet that Exports Multi-path Descriptors
 
-Some descriptors describe multiple paths in one descriptor using angle brackets, e.g., `<0;1>`. Multi-path descriptors are not yet supported by Bitcoin Core, so you'll first need to convert them into multiple descriptors, and then import those multiple descriptors into Bitcoin Core.
+Some descriptors describe multiple paths in one descriptor using angle 
+brackets, e.g., `<0;1>`. Multi-path descriptors are not yet supported by 
+Bitcoin Core, so you'll first need to convert them into multiple 
+descriptors, and then import those multiple descriptors into Bitcoin Core.
 
 
 
 
-1. First get the multi-path descriptor from your wallet. It will look something like this:
+1. First get the multi-path descriptor from your wallet. It will look something 
+like this:
 
 
 ```
@@ -190,7 +218,8 @@ wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8
 
 
 
-3. Get and note the checksum for the receive address descriptor, in this case `tpnxnxax`:
+3. Get and note the checksum for the receive address descriptor, in this case 
+`tpnxnxax`:
 
 
 ```sh
@@ -214,6 +243,12 @@ bitcoin-cli getdescriptorinfo
 
 
 
+
+
+
+
+
+
 And for the change address descriptor, in this case `64k8wnd7`:
 
 ```sh
@@ -234,6 +269,12 @@ bitcoin-cli getdescriptorinfo
   "hasprivatekeys": false
 }
 ```
+
+
+
+
+
+
 
 
 
@@ -267,7 +308,20 @@ bitcoin-cli
 
 
 
-If you know the Unix timestamp when your wallet first started receive transactions, you may use it for the value of the `"timestamp"` fields instead of `0`. This will reduce the time it takes for Bitcoin Core to search for your wallet's UTXOs.
+
+
+
+
+
+
+
+
+
+
+If you know the Unix timestamp when your wallet first started receive 
+transactions, you may use it for the value of the `"timestamp"` fields 
+instead of `0`. This will reduce the time it takes for Bitcoin Core to 
+search for your wallet's UTXOs.
 
 
 
@@ -288,16 +342,20 @@ ord wallet sats
 
 
 
-### Exporting Descriptors
+Exporting Descriptors
 
-#### 麻雀钱包
+麻雀钱包
 
 Navigate to the `Settings` tab, then to `Script Policy`, and press the edit 
 button to display the descriptor.
 
-### Transferring Ordinals
 
-The `ord` wallet supports transferring specific satoshis. You can also use `bitcoin-cli` commands `createrawtransaction`, `signrawtransactionwithwallet`, and `sendrawtransaction`, how to do so is complex and outside the scope of this guide.
+Transferring Ordinals
+
+The `ord` wallet supports transferring specific satoshis. You can also use 
+`bitcoin-cli` commands `createrawtransaction`, 
+`signrawtransactionwithwallet`, and `sendrawtransaction`, how to do so is 
+complex and outside the scope of this guide.
 
 
 
