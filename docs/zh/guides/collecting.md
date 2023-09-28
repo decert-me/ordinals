@@ -13,7 +13,7 @@
 
 
 
-本手册提供了使用[Sparrow Wallet](https://sparrowwallet.com/)创建与 `ord`兼容的钱包的[指南](./collecting/sparrow-wallet.md) 。
+本手册提供了使用 [Sparrow Wallet](https://sparrowwallet.com/) 创建与 `ord` 兼容的钱包的[指南](./collecting/sparrow-wallet.md) 。
 
 请注意，如果您遵循本指南，则不应使用您创建的钱包发送 BTC，除非您执行手动硬币选择以避免发送序号。
 

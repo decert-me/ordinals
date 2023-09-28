@@ -1,11 +1,11 @@
-Ordinals赏金计划提示
+Ordinals 赏金计划提示
 ============================
 
 - `ord` 钱包可以发送和接收特定的聪。此外序数理论非常简单。聪明的黑客应该能够很快的从头开始编写代码，使用序数理论来操作聪；
 
 
 
-- 关于序数理论的更多信息，请查阅[FAQ](./faq.md) 来获取概述；查阅[BIP](https://github.com/ordinals/ord/blob/master/bip.mediawiki) 来获取技术细节查阅[ord repo](https://github.com/ordinals/ord)来获取`ord`钱包和浏览器的信息.
+- 关于序数理论的更多信息，请查阅 [FAQ](./faq.md) 来获取概述；查阅[BIP](https://github.com/ordinals/ord/blob/master/bip.mediawiki) 来获取技术细节查阅[ord repo](https://github.com/ordinals/ord) 来获取 `ord` 钱包和浏览器的信息。
 
 
 

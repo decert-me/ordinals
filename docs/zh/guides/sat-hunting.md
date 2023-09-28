@@ -1,7 +1,7 @@
 猎聪
 ===========
 
-_本指南已过时。自编写以来，“ord”安装文件已更改仅当提供“--index-sats”标志时才构建完整的聪索引。此外，“ord”现在有一个内置钱包，其中包含比特币核心钱包。请参阅`ord wallet --help`。_
+*本指南已过时。自编写以来，“ord”安装文件已更改仅当提供 “--index-sats” 标志时才构建完整的聪索引。此外，“ord”现在有一个内置钱包，其中包含比特币核心钱包。请参阅 `ord wallet --help`。*
 
 
 
@@ -123,14 +123,14 @@ bitcoin-cli loadwallet foo-watch-only
 4. Import your wallet descriptors into `foo-watch-only`:
 
 ```sh
-bitcoin-cli importdescriptors 
-  '[{ "desc": 
+bitcoin-cli importdescriptors
+  '[{"desc":
 "wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#tpnxnxax", "timestamp":0 }]'
 ```
 
 
 
-If you know the Unix timestamp when your wallet first started receive transactions, you may use it for the value of `"timestamp"` instead of `0`. This will reduce the time it takes for Bitcoin Core to search for your 
+If you know the Unix timestamp when your wallet first started receive transactions, you may use it for the value of `"timestamp"` instead of `0`. This will reduce the time it takes for Bitcoin Core to search for your
 wallet's UTXOs.
 
 
@@ -188,7 +188,7 @@ wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8
 
 
 ```sh
-bitcoin-cli getdescriptorinfo 
+bitcoin-cli getdescriptorinfo
   'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)'
 ```
 
@@ -197,7 +197,7 @@ bitcoin-cli getdescriptorinfo
 
 ```json
 {
-  "descriptor": 
+  "descriptor":
 "wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#csvefu29",
   "checksum": "tpnxnxax",
   "isrange": true,
@@ -211,7 +211,7 @@ bitcoin-cli getdescriptorinfo
 And for the change address descriptor, in this case `64k8wnd7`:
 
 ```sh
-bitcoin-cli getdescriptorinfo 
+bitcoin-cli getdescriptorinfo
   'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)'
 ```
 
@@ -220,7 +220,7 @@ bitcoin-cli getdescriptorinfo
 
 ```json
 {
-  "descriptor": 
+  "descriptor":
 "wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)#fyfc5f6a",
   "checksum": "64k8wnd7",
   "isrange": true,
@@ -242,16 +242,16 @@ bitcoin-cli loadwallet foo-watch-only
 5. Now import the descriptors, with the correct checksums, into Bitcoin Core.
 
 ```sh
-bitcoin-cli 
- importdescriptors 
+bitcoin-cli
+ importdescriptors
  '[
    {
-     "desc": 
+     "desc":
 "wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#tpnxnxax"
      "timestamp":0
    },
    {
-     "desc": 
+     "desc":
 "wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)#64k8wnd7",
      "timestamp":0
    }

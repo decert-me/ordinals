@@ -1,7 +1,7 @@
 序数浏览器
 ================
 
-`ord` 文件包含一个区块浏览器。我们的主网区块链器部署在 [ordinals.com](https://ordinals.com), signet部署在[signet.ordinals.com](https://signet.ordinals.com).
+`ord` 文件包含一个区块浏览器。我们的主网区块链器部署在 [ordinals.com](https://ordinals.com) ， signet 部署在 [signet.ordinals.com](https://signet.ordinals.com)。
 
 
 
@@ -11,7 +11,7 @@
 
 `ord server`
 
-指定端口使用`--http-port`标记
+指定端口使用 `--http-port` 标记
 
 `ord server --http-port 8080`
 
@@ -34,14 +34,14 @@ Search
 
 ### 交易
 
-可以通过哈希查找交易，例如创世区块的coinbase交易：
+可以通过哈希查找交易，例如创世区块的 coinbase 交易：
 
 
 [4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b](https://ordinals.com/search/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b)
 
 ### 输出
 
-可以通过outpoint搜索交易输出，例如创世块coinbase交易的唯一输出：
+可以通过 outpoint 搜索交易输出，例如创世块 coinbase 交易的唯一输出：
 
 
 [4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0](https://ordinals.com/search/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0)
@@ -60,7 +60,7 @@ Search
 
 [1°0′0″0‴](https://ordinals.com/search/1°0′0″0‴)
 
-按照名称，它们使用字母"a"到"z"的 26个字母组合表示：
+按照名称，它们使用字母 "a" 到 "z" 的 26 个字母组合表示：
 
 [ahistorical](https://ordinals.com/search/ahistorical)
 
