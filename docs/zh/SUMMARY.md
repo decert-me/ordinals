@@ -1,5 +1,5 @@
 # Summary
-- [介绍](introduction.md)
+[介绍](introduction.md)
 - [概述](overview.md)
 - [数字文物](digital-artifacts.md)
 - [铭文](inscriptions.md)
