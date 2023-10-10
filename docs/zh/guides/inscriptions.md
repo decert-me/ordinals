@@ -211,11 +211,11 @@ ord wallet inscriptions
 
 
 
-## Parent Child Inscriptions
+## 父子铭文
 
-A child inscription is an inscription that is a child of another inscription. See [provenance](https://docs.ordinals.com/zh/inscriptions/provenance.html) for more information.
+子铭文是另一个铭文的子铭文。有关更多信息，请参阅[溯源](../inscriptions/provenance.md)。
 
-get the parent inscription id `<PARENT_INSCRIPTION_ID>` from the output of `ord wallet inscriptions`
+从 `ord wallet inscriptions` 的输出中获取父铭文 ID `<PARENT_INSCRIPTION_ID>`。
 
 ```
 ord wallet inscribe --fee-rate FEE_RATE --parent <PARENT_INSCRIPTION_ID> CHILD_FILE"
