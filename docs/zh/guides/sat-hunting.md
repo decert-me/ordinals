@@ -1,296 +1,221 @@
 猎聪
 ===========
 
-*本指南已过时。自编写以来，“ord”安装文件已更改仅当提供 “--index-sats” 标志时才构建完整的聪索引。此外，“ord”现在有一个内置钱包，其中包含比特币核心钱包。请参阅 `ord wallet --help`。*
+*本指南已过时。自编写以来，“ord” 安装文件已更改仅当提供 “--index-sats” 标志时才构建完整的聪索引。此外，“ord” 现在有一个内置钱包，其中包含比特币核心钱包。请参阅 `ord wallet --help`。*
 
+Ordinal 寻找是困难但有回报的。拥有一只装满 UTXOs 的钱包，充满了稀有和奇特的聪的气味，是无与伦比的。
 
+序数是 satoshi 的数字。每个 satoshi 都有一个序数，每个序数都有一个 satoshi。
 
-Ordinal hunting is difficult but rewarding. The feeling of owning a wallet full of UTXOs, redolent with the scent of rare and exotic sats, is beyond compare.
-
-
-Ordinals are numbers for satoshis. Every satoshi has an ordinal number and every ordinal number has a satoshi.
-
-
-Preparation
+准备工作
 -----------
 
-There are a few things you'll need before you start.
+在开始之前，你需要几样东西。
 
-1. First, you'll need a synced Bitcoin Core node with a transaction index. To turn on transaction indexing, pass `-txindex` on the command-line:
-
+1. 首先，你需要一个已同步的 Bitcoin Core 节点，并带有事务索引。要打开事务索引，请在命令行中传递`-txindex`：
 
 ```sh
 bitcoind -txindex
 ```
 
-
-
-Or put the following in your [Bitcoin configuration file](https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md#configuration-file-path):
-
+或者将以下内容放入你的[Bitcoin 配置文件](https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md#configuration-file-path)：
 
 ```
 txindex=1
 ```
 
-
-
-Launch it and wait for it to catch up to the chain tip, at which point the following command should print out the current block height:
-
+启动它并等待它更新到最新链上数据，此时以下命令应打印出当前块高度：
 
 ```sh
 bitcoin-cli getblockcount
 ```
 
+2. 其次，你需要一个已同步的`ord`索引。
+   - 从 [repo](https://github.com/ordinals/ord/) 获取 `ord` 的副本。
+   - 运行 `RUST_LOG=info ord index`。它应连接到你的 Bitcoin Core 节点并开始索引。
+   - 等待它完成索引。
 
+3. 第三，你需要一个带有你要搜索的 UTXOs 的钱包。
 
-2. Second, you'll need a synced `ord` index.
-   - Get a copy of `ord` from [the repo](https://github.com/ordinals/ord/).
-   - Run `RUST_LOG=info ord index`. It should connect to your bitcoin core node and start indexing.
-   - Wait for it to finish indexing.
-
-3. Third, you'll need a wallet with UTXOs that you want to search.
-
-Searching for Rare Ordinals
+搜索稀有序数
 ---------------------------
 
-#### Searching for Rare Ordinals in a Bitcoin Core Wallet
+#### 在 Bitcoin Core 钱包中搜索稀有序数
 
-The `ord wallet` command is just a wrapper around Bitcoin Core's RPC API, so searching for rare ordinals in a Bitcoin Core wallet is Easy. Assuming your wallet is named `foo`:
+`ord wallet` 命令只是 Bitcoin Core 的 RPC API 的包装器，因此在 Bitcoin Core 钱包中搜索稀有序数很容易。假设你的钱包名为 `foo`：
 
+1. 加载你的钱包：
 
+  ```sh
+  bitcoin-cli loadwallet foo
+  ```
 
-1. Load your wallet:
+2. 显示钱包 `foo` 的任何稀有序数的 UTXOs：
 
-```sh
-bitcoin-cli loadwallet foo
-```
+  ```sh
+  ord wallet sats
+  ```
 
+#### 在非 Bitcoin Core 钱包中搜索稀有序数
 
+`ord wallet`命令只是 Bitcoin Core 的 RPC API 的包装器，因此要在非 Bitcoin Core 钱包中搜索稀有序数，你需要将你的钱包描述符导入到 Bitcoin Core 中。
 
-2. Display any rare ordinals wallet `foo`'s UTXOs:
+[描述符](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md)描述了钱包生成私钥和公钥的方式。
 
-```sh
-ord wallet sats
-```
+你应该只将公钥描述符导入到比特币核心中，而不是私钥描述符。
 
+如果你的钱包的公钥描述符被攻击者获取，攻击者将能够看到你的钱包地址，但你的资金将是安全的。
 
+如果你的钱包的私钥描述符被攻击者获取，攻击者可以将你的钱包中的资金全部转走。
 
-#### Searching for Rare Ordinals in a Non-Bitcoin Core Wallet
+1. 从你想要搜索稀有序号的 UTXOs 的钱包中获取钱包描述符。它会看起来像这样：
 
- The `ord wallet` command is just a wrapper around Bitcoin Core's RPC API, so to search for rare ordinals in a non-Bitcoin Core wallet, you'll need to import your wallet's descriptors into Bitcoin Core.
+  ```
+  wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#csvefu29
+  ```
 
+2. 创建一个只读钱包，命名为 `foo-watch-only`：
 
+  ```sh
+  bitcoin-cli createwallet foo-watch-only true true
+  ```
 
-[Descriptors](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) describe the ways that wallets generate private keys and public keys.
+请随意给它一个比 `foo-watch-only` 更好的名字！
 
+3. 加载 `foo-watch-only` 钱包：
 
-You should only import descriptors into Bitcoin Core for your wallet's public keys, not its private keys.
+  ```sh
+  bitcoin-cli loadwallet foo-watch-only
+  ```
 
+4. 将你的钱包描述符导入到 `foo-watch-only` 中：
 
-If your wallet's public key descriptor is compromised, an attacker will be able to see your wallet's addresses, but your funds will be safe.
+  ```sh
+  bitcoin-cli importdescriptors
+    '[{"desc":
+  "wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#tpnxnxax", "timestamp":0 }]'
+  ```
 
+  如果你知道你的钱包首次开始接收交易的 Unix 时间戳，你可以将其用作 `"timestamp"` 的值，而不是`0`。这将减少比特币核心搜索你的钱包 UTXOs 所需的时间。
 
-If your wallet's private key descriptor is compromised, an attacker can drain your wallet of funds.
+5. 检查一切是否正常：
 
+  ```sh
+  bitcoin-cli getwalletinfo
+  ```
 
-1. Get the wallet descriptor from the wallet whose UTXOs you want to search for rare ordinals. It will look something like this:
+6. 显示你的钱包的稀有序号：
 
+  ```sh
+  ord wallet sats
+  ```
 
-```
-wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#csvefu29
-```
+#### 在导出多路径描述符的钱包中搜索稀有序号
 
+一些描述符使用尖括号来描述一个描述符中的多个路径，例如`<0;1>`。比特币核心尚不支持多路径描述符，因此你首先需要将它们转换为多个描述符，然后将这些多个描述符导入到比特币核心中。
 
+1. 首先从你的钱包中获取多路径描述符。它会看起来像这样：
 
-2. Create a watch-only wallet named `foo-watch-only`:
+  ```
+  wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/<0;1>/*)#fw76ulgt
+  ```
 
-```sh
-bitcoin-cli createwallet foo-watch-only true true
-```
+2. 为接收地址路径创建一个描述符：
 
+  ```
+  wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)
+  ```
 
+  以及更改地址路径：
 
-Feel free to give it a better name than `foo-watch-only`!
+  ```
+  wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)
+  ```
 
-3. Load the `foo-watch-only` wallet:
+3. 获取并记录接收地址描述符的校验和，本例中为 `tpnxnxax`:
 
-```sh
-bitcoin-cli loadwallet foo-watch-only
-```
+  ```sh
+  bitcoin-cli getdescriptorinfo
+    'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)'
+  ```
 
-
-
-4. Import your wallet descriptors into `foo-watch-only`:
-
-```sh
-bitcoin-cli importdescriptors
-  '[{"desc":
-"wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#tpnxnxax", "timestamp":0 }]'
-```
-
-
-
-If you know the Unix timestamp when your wallet first started receive transactions, you may use it for the value of `"timestamp"` instead of `0`. This will reduce the time it takes for Bitcoin Core to search for your
-wallet's UTXOs.
-
-
-
-
-5. Check that everything worked:
-
-```sh
-bitcoin-cli getwalletinfo
-```
-
-
-
-6. Display your wallet's rare ordinals:
-
-```sh
-ord wallet sats
-```
-
-
-
-#### Searching for Rare Ordinals in a Wallet that Exports Multi-path Descriptors
-
-Some descriptors describe multiple paths in one descriptor using angle brackets, e.g., `<0;1>`. Multi-path descriptors are not yet supported by Bitcoin Core, so you'll first need to convert them into multiple descriptors, and then import those multiple descriptors into Bitcoin Core.
-
-
-
-
-1. First get the multi-path descriptor from your wallet. It will look something like this:
-
-
-```
-wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/<0;1>/*)#fw76ulgt
-```
-
-
-
-2. Create a descriptor for the receive address path:
-
-```
-wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)
-```
-
-
-
-And the change address path:
-
-```
-wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)
-```
-
-
-
-3. Get and note the checksum for the receive address descriptor, in this case `tpnxnxax`:
-
-
-```sh
-bitcoin-cli getdescriptorinfo
-  'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)'
-```
-
-
-
-
-```json
-{
-  "descriptor":
-"wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#csvefu29",
-  "checksum": "tpnxnxax",
-  "isrange": true,
-  "issolvable": true,
-  "hasprivatekeys": false
-}
-```
-
-
-
-And for the change address descriptor, in this case `64k8wnd7`:
-
-```sh
-bitcoin-cli getdescriptorinfo
-  'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)'
-```
-
-
-
-
-```json
-{
-  "descriptor":
-"wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)#fyfc5f6a",
-  "checksum": "64k8wnd7",
-  "isrange": true,
-  "issolvable": true,
-  "hasprivatekeys": false
-}
-```
-
-
-
-4. Load the wallet you want to import the descriptors into:
-
-```sh
-bitcoin-cli loadwallet foo-watch-only
-```
-
-
-
-5. Now import the descriptors, with the correct checksums, into Bitcoin Core.
-
-```sh
-bitcoin-cli
- importdescriptors
- '[
-   {
-     "desc":
-"wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#tpnxnxax"
-     "timestamp":0
-   },
-   {
-     "desc":
-"wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)#64k8wnd7",
-     "timestamp":0
-   }
- ]'
-```
-
-
-
-
-If you know the Unix timestamp when your wallet first started receive transactions, you may use it for the value of the `"timestamp"` fields instead of `0`. This will reduce the time it takes for Bitcoin Core to search for your wallet's UTXOs.
-
-
-
-
-6. Check that everything worked:
-
-```sh
-bitcoin-cli getwalletinfo
-```
-
-
-
-7. Display your wallet's rare ordinals:
-
-```sh
-ord wallet sats
-```
-
-
-
-### Exporting Descriptors
-
-#### 麻雀钱包
-
-Navigate to the `Settings` tab, then to `Script Policy`, and press the edit button to display the descriptor.
-
-### Transferring Ordinals
-
-The `ord` wallet supports transferring specific satoshis. You can also use `bitcoin-cli` commands `createrawtransaction`, `signrawtransactionwithwallet`, and `sendrawtransaction`, how to do so is complex and outside the scope of this guide.
+  ```json
+  {
+    "descriptor":
+  "wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#csvefu29",
+    "checksum": "tpnxnxax",
+    "isrange": true,
+    "issolvable": true,
+    "hasprivatekeys": false
+  }
+  ```
+
+  以及更改地址描述符的校验和，本例中为 `64k8wnd7`:
+
+  ```sh
+  bitcoin-cli getdescriptorinfo
+    'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)'
+  ```
+
+  ```json
+  {
+    "descriptor":
+  "wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)#fyfc5f6a",
+    "checksum": "64k8wnd7",
+    "isrange": true,
+    "issolvable": true,
+    "hasprivatekeys": false
+  }
+  ```
+
+4. 加载要导入描述符的钱包：
+
+  ```sh
+  bitcoin-cli loadwallet foo-watch-only
+  ```
+
+5. 现在将带有正确校验和的描述符导入到比特币核心中。
+
+  ```sh
+  bitcoin-cli
+  importdescriptors
+  '[
+    {
+      "desc":
+  "wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#tpnxnxax"
+      "timestamp":0
+    },
+    {
+      "desc":
+  "wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)#64k8wnd7",
+      "timestamp":0
+    }
+  ]'
+  ```
+
+  如果你知道钱包首次开始接收交易的 Unix 时间戳，可以将其用作 `"timestamp"` 字段的值，而不是 `0`。这将减少比特币核心搜索钱包的未使用交易输出所需的时间。
+
+6. 检查是否一切正常：
+
+  ```sh
+  bitcoin-cli getwalletinfo
+  ```
+
+7. 显示钱包的稀有序数：
+
+  ```sh
+  ord wallet sats
+  ```
+
+### 导出描述符
+
+#### Sparrow 钱包
+
+导航到 `设置` 选项卡，然后到 `脚本策略`，点击编辑按钮以显示描述符。
+
+### 转移序数
+
+`ord` 钱包支持转移特定的聪。你还可以使用 `bitcoin-cli` 命令 `createrawtransaction`、`signrawtransactionwithwallet` 和 `sendrawtransaction`，但这样做比较复杂，超出了本指南的范围。
 
 
 
