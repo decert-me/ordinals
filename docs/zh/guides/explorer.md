@@ -15,6 +15,10 @@
 
 `ord server --http-port 8080`
 
+要启用 JSON-API 端点，请添加`--enable-json-api`或`-j`标志（有关更多信息，请参见[这里](#json-api)）：
+
+`ord --enable-json-api server`
+
 测试你的铭文你可以运行：
 
 `ord preview <FILE1> <FILE2> ...`
@@ -67,3 +71,45 @@ Search
 或者按百分位数，在开采时已经或将要发行的比特币供应量的百分比：
 
 [100%](https://ordinals.com/search/100%)
+
+JSON-API
+--------
+
+您可以使用`ord`命令并添加`--enable-json-api`标志来访问返回 JSON 而不是 HTML 的端点，如果您设置了 HTTP `Accept: application/json`头。这些对象的结构与 HTML 中显示的内容非常相似。这些端点包括：
+
+- `/inscription/<INSCRIPTION_ID>`
+- `/inscriptions`
+- `/inscriptions/block/<BLOCK_HEIGHT>`
+- `/inscriptions/block/<BLOCK_HEIGHT>/<PAGE_INDEX>`
+- `/inscriptions/<FROM>`
+- `/inscriptions/<FROM>/<N>`
+- `/output/<OUTPOINT>`
+- `/output/<OUTPOINT>`
+- `/sat/<SAT>`
+
+要获取最新的 100 个铭文的列表，您可以执行以下操作：
+
+```
+curl -s -H "Accept: application/json" 'http://0.0.0.0:80/inscriptions'
+```
+
+要查看包含其中铭文的 UTXO 的信息，请执行以下操作：
+
+```
+curl -s -H "Accept: application/json" 'http://0.0.0.0:80/output/bc4c30829a9564c0d58e6287195622b53ced54a25711d1b86be7cd3a70ef61ed:0'
+```
+
+返回结果如下：
+
+```
+{
+  "value": 10000,
+  "script_pubkey": "OP_PUSHNUM_1 OP_PUSHBYTES_32 156cc4878306157720607cdcb4b32afa4cc6853868458d7258b907112e5a434b",
+  "address": "bc1pz4kvfpurqc2hwgrq0nwtfve2lfxvdpfcdpzc6ujchyr3ztj6gd9sfr6ayf",
+  "transaction": "bc4c30829a9564c0d58e6287195622b53ced54a25711d1b86be7cd3a70ef61ed",
+  "sat_ranges": null,
+  "inscriptions": [
+    "6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0"
+  ]
+}
+```

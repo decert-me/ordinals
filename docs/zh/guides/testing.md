@@ -37,7 +37,7 @@ ord -r wallet receive
 
 挖取 101 个区块（解锁 coinbase）使用：
 ```
-bitcoin-cli generatetoaddress 101 <receive address>
+bitcoin-cli -regtest generatetoaddress 101 <receive address>
 ```
 
 
@@ -49,7 +49,7 @@ ord -r wallet inscribe --fee-rate 1 <file>
 
 挖取铭文
 ```
-bitcoin-cli generatetoaddress 1 <receive address>
+bitcoin-cli -regtest generatetoaddress 1 <receive address>
 ```
 
 
@@ -63,7 +63,7 @@ ord -r server
 测试递归
 -----------------
 
-测试 [recursion](../inscriptions/recursion.md) 时，首先记下依赖项（以 [p5.js](https://p5js.org) 为例：
+测试 [recursion](../inscriptions/recursion.md) 时，首先记下依赖项（以 [p5.js](https://p5js.org) 为例）：
 
 ```
 ord -r wallet inscribe --fee-rate 1 p5.js
