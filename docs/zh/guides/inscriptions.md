@@ -44,7 +44,7 @@ Bitcoin Core 可以在 [bitcoincore.org](https://bitcoincore.org/) 上的 [下�
 
 制作铭文需要 Bitcoin Core 24 或者更新版本。
 
-本指南不详细介绍安装比特币核心的步骤。一旦安装完成比特币核心，您应该能够在命令行中成功运行 `bitcoind -version`。请*不要*使用 `bitcoin-qt`。
+本指南不详细介绍安装比特币核心的步骤。一旦安装完成比特币核心，你应该能够在命令行中成功运行 `bitcoind -version` 。请 *不要* 使用 `bitcoin-qt` 。
 
 配置 Bitcoin Core
 ------------------------
@@ -66,7 +66,7 @@ txindex=1
 bitcoind -txindex
 ```
 
-有关创建或修改`bitcoin.conf`文件的详细信息可以在[这里](https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md)找到。
+有关创建或修改 `bitcoin.conf` 文件的详细信息可以在 [这里](https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md) 找到。
 
 比特币区块同步
 ------------------------------
@@ -77,34 +77,34 @@ bitcoind -txindex
 bitcoind -txindex
 ```
 
-… 直到运行 `getblockcount`：
+… 直到运行 `getblockcount` ：
 
 ```
 bitcoin-cli getblockcount
 ```
 
 
-像区块链浏览器 [the mempool.space block explorer](https://mempool.space/) 一样对区块进行记述. `ord` 同 `bitcoind` 进行交互, 所以你在使用 `ord` 时候需要让 `bitcoind` 在后台运行。
+像区块链浏览器 [the mempool.space block explorer](https://mempool.space/) 一样对区块进行记述。 `ord` 同 `bitcoind` 进行交互, 所以你在使用 `ord` 时候需要让 `bitcoind` 在后台运行。
 
-区块链占用约 600GB 的磁盘空间。如果您有一个外部驱动器想要存储区块，可以使用配置选项`blocksdir=<external_drive_path>`。这比使用`datadir`选项要简单得多，因为 cookie 文件仍将位于`bitcoin-cli`和`ord`默认位置以供查找。
+区块链占用约 600GB 的磁盘空间。如果你有一个外部驱动器想要存储区块，可以使用配置选项 `blocksdir=<external_drive_path>` 。这比使用 `datadir` 选项要简单得多，因为 cookie 文件仍将位于 `bitcoin-cli` 和 `ord` 默认位置以供查找。
 
 故障排除
 ---------------
 
-确保您可以通过`bitcoin-cli -getinfo`访问`bitcoind`并且它已完全同步。
+确保你可以通过 `bitcoin-cli -getinfo` 访问 `bitcoind` 并且它已完全同步。
 
-如果`bitcoin-cli -getinfo`返回`无法连接到服务器`，则表示`bitcoind`未运行。
+如果 `bitcoin-cli -getinfo` 返回 ` 无法连接到服务器 `，则表示 `bitcoind` 未运行。
 
-确保在您的`bitcoin.conf`文件中*未设置*`rpcuser`、`rpcpassword`或`rpcauth`。`ord`需要使用 cookie 身份验证。确保您的比特币数据目录中有一个名为`.cookie`的文件。
+确保在你的 `bitcoin.conf` 文件中 *未设置* `rpcuser`、`rpcpassword` 或 `rpcauth`。`ord` 需要使用 cookie 身份验证。确保你的比特币数据目录中有一个名为 `.cookie` 的文件。
 
-如果`bitcoin-cli -getinfo`返回`无法找到 RPC 凭据`，则必须指定 cookie 文件位置。
-如果您使用自定义数据目录（指定`datadir`选项），则必须像这样指定 cookie 位置：
+如果 `bitcoin-cli -getinfo` 返回 `无法找到 RPC 凭据`，则必须指定 cookie 文件位置。
+如果你使用自定义数据目录（指定 `datadir` 选项），则必须像这样指定 cookie 位置：
 `bitcoin-cli -rpccookiefile=<your_bitcoin_datadir>/.cookie -getinfo`。
-在运行`ord`时，您必须使用`--cookie-file=<your_bitcoin_datadir>/.cookie`指定 cookie 文件位置。
+在运行 `ord` 时，你必须使用 `--cookie-file=<your_bitcoin_datadir>/.cookie` 指定 cookie 文件位置。
 
-确保您的`bitcoin.conf`文件中*未设置*`disablewallet=1`。如果`bitcoin-cli listwallets`返回`找不到方法`，则表示钱包已禁用，您将无法使用`ord`。
+确保你的 `bitcoin.conf` 文件中 *未设置* `disablewallet=1`。如果 `bitcoin-cli listwallets` 返回 `找不到方法`，则表示钱包已禁用，你将无法使用 `ord`。
 
-确保设置了`txindex=1`。运行`bitcoin-cli getindexinfo`应该返回类似以下的内容：
+确保设置了 `txindex=1`。运行 `bitcoin-cli getindexinfo` 应该返回类似以下的内容：
 ```json
 {
   "txindex": {
@@ -113,10 +113,10 @@ bitcoin-cli getblockcount
   }
 }
 ```
-如果它只返回`{}`，则表示未设置`txindex`。
-如果它返回`"synced": false`，则表示`bitcoind`仍在创建`txindex`。在使用`ord`之前，请等待`"synced": true`。
+如果它只返回 `{}`，则表示未设置 `txindex`。
+如果它返回 `"synced": false`，则表示 `bitcoind` 仍在创建 `txindex`。在使用 `ord` 之前，请等待 `"synced": true`。
 
-如果您设置了`maxuploadtarget`，它可能会干扰`ord`索引的区块获取。请删除它或设置`whitebind=127.0.0.1:8333`。
+如果你设置了 `maxuploadtarget`，它可能会干扰 `ord` 索引的区块获取。请删除它或设置 `whitebind=127.0.0.1:8333`。
 
 
 安装 `ord`
@@ -225,9 +225,9 @@ ord wallet inscriptions
 父子铭文
 -------------------------
 
-父子铭文使得所谓的集合成为可能，详见[来源](../inscriptions/provenance.md)以获取更多信息。
+父子铭文使得所谓的集合成为可能，详见 [来源](../inscriptions/provenance.md) 以获取更多信息。
 
-要将一个铭文设为另一个铭文的子铭文，父铭文必须已经被铭刻并存在于钱包中。要选择一个父铭文，请运行`ord wallet inscriptions`并复制铭文 ID（`<PARENT_INSCRIPTION_ID>`）。
+要将一个铭文设为另一个铭文的子铭文，父铭文必须已经被铭刻并存在于钱包中。要选择一个父铭文，请运行 `ord wallet inscriptions` 并复制铭文 ID（`<PARENT_INSCRIPTION_ID>`）。
 
 现在，铭刻子铭文并指定父铭文，如下所示：
 

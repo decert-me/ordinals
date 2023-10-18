@@ -15,7 +15,7 @@
 
 `ord server --http-port 8080`
 
-要启用 JSON-API 端点，请添加`--enable-json-api`或`-j`标志（有关更多信息，请参见[这里](#json-api)）：
+要启用 JSON-API 端点，请添加 `--enable-json-api` 或 `-j` 标志（有关更多信息，请参见[这里](#json-api)）：
 
 `ord --enable-json-api server`
 
@@ -75,7 +75,7 @@ Search
 JSON-API
 --------
 
-您可以使用`ord`命令并添加`--enable-json-api`标志来访问返回 JSON 而不是 HTML 的端点，如果您设置了 HTTP `Accept: application/json`头。这些对象的结构与 HTML 中显示的内容非常相似。这些端点包括：
+你可以使用 `ord` 命令并添加 `--enable-json-api` 标志来访问返回 JSON 而不是 HTML 的端点，如果你设置了 HTTP `Accept: application/json` 头。这些对象的结构与 HTML 中显示的内容非常相似。这些端点包括：
 
 - `/inscription/<INSCRIPTION_ID>`
 - `/inscriptions`
@@ -87,7 +87,7 @@ JSON-API
 - `/output/<OUTPOINT>`
 - `/sat/<SAT>`
 
-要获取最新的 100 个铭文的列表，您可以执行以下操作：
+要获取最新的 100 个铭文的列表，你可以执行以下操作：
 
 ```
 curl -s -H "Accept: application/json" 'http://0.0.0.0:80/inscriptions'
