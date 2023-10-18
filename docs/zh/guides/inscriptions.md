@@ -225,7 +225,7 @@ ord wallet inscriptions
 父子铭文
 -------------------------
 
-父子铭文使得所谓的集合成为可能，详见 [来源](../inscriptions/provenance.md) 以获取更多信息。
+父子铭文使得所谓的集合成为可能，详见[溯源](../inscriptions/provenance.md)以获取更多信息。
 
 要将一个铭文设为另一个铭文的子铭文，父铭文必须已经被铭刻并存在于钱包中。要选择一个父铭文，请运行 `ord wallet inscriptions` 并复制铭文 ID（`<PARENT_INSCRIPTION_ID>`）。
 

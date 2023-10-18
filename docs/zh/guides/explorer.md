@@ -75,7 +75,7 @@ Search
 JSON-API
 --------
 
-你可以使用 `ord` 命令并添加 `--enable-json-api` 标志来访问返回 JSON 而不是 HTML 的端点，如果你设置了 HTTP `Accept: application/json` 头。这些对象的结构与 HTML 中显示的内容非常相似。这些端点包括：
+如果设置了 HTTP `Accept: application/json` 头，可以使用 `ord` 命令并添加 `--enable-json-api` 标志来访问端点，返回 JSON 而不是 HTML。这些对象的结构与 HTML 中显示的内容非常相似。这些端点包括：
 
 - `/inscription/<INSCRIPTION_ID>`
 - `/inscriptions`
@@ -93,7 +93,7 @@ JSON-API
 curl -s -H "Accept: application/json" 'http://0.0.0.0:80/inscriptions'
 ```
 
-要查看包含其中铭文的 UTXO 的信息，请执行以下操作：
+要查看包含了铭文的 UTXO 的信息，请执行以下操作：
 
 ```
 curl -s -H "Accept: application/json" 'http://0.0.0.0:80/output/bc4c30829a9564c0d58e6287195622b53ced54a25711d1b86be7cd3a70ef61ed:0'
