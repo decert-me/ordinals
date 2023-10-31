@@ -17,7 +17,7 @@
 
 要启用 JSON-API 端点，请添加 `--enable-json-api` 或 `-j` 标志（有关更多信息，请参见[这里](#json-api)）：
 
-`ord --enable-json-api server`
+`ord server --enable-json-api`
 
 测试你的铭文你可以运行：
 
@@ -75,7 +75,7 @@ Search
 JSON-API
 --------
 
-如果设置了 HTTP `Accept: application/json` 头，可以使用 `ord` 命令并添加 `--enable-json-api` 标志来访问端点，返回 JSON 而不是 HTML。这些对象的结构与 HTML 中显示的内容非常相似。这些端点包括：
+如果设置了 HTTP `Accept: application/json` 头，可以使用 `ord server` 命令并添加 `--enable-json-api` 标志来访问端点，返回 JSON 而不是 HTML。这些对象的结构与 HTML 中显示的内容非常相似。这些端点包括：
 
 - `/inscription/<INSCRIPTION_ID>`
 - `/inscriptions`
